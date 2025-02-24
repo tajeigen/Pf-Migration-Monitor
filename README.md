@@ -1,4 +1,3 @@
-```markdown
 # BullX Coin Migration Monitor
 
 A Node.js application that monitors new coin migrations on BullX platform, analyzes transactions, and sends notifications via Telegram.
