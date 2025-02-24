@@ -136,7 +136,6 @@ Two options available:
 
 - [ ] Implement Telegram session management
 - [ ] Optimize database schema
-- [ ] Improve 
 
 ## ⚠️ Important Notes
 
