@@ -60,7 +60,7 @@ BULLX_EVENT=event_name
 ## 🏃‍♂️ Running the Application
 
 ```bash
-node main.js
+npm run start
 ```
 
 ## 📁 Project Structure
@@ -136,6 +136,7 @@ Two options available:
 
 - [ ] Implement Telegram session management
 - [ ] Optimize database schema
+- [ ] Improve 
 
 ## ⚠️ Important Notes
 
@@ -148,7 +149,3 @@ Two options available:
 
 Feel free to submit issues and enhancement requests!
 
-## 📄 License
-
-This project is licensed under the ISC License - see the LICENSE file for details.
-```

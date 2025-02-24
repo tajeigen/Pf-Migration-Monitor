@@ -9,8 +9,9 @@ const mongoose = require('mongoose');
 const logger  = require('./logs/logger');   // Import logger
 const MintTransaction = require("./models/Transaction"); // Import MintTransaction model
 const {processAnalytics,printAnalytics,printBundleInfo} = require("./utils/processAnalytics");
-require("dotenv").config();
-const CHANNEL_ID = process.env.CHANNEL_ID;
+const config = require('./config/config');
+
+const {channelId} = config.telegram;
 
 // Function to perform analytics on a given mint address
 async function analyzeMint(mintAddress, logMessage) {
@@ -50,7 +51,7 @@ async function analyzeMint(mintAddress, logMessage) {
 
     //OPTION2: the personal tg account way:
     // Send the analysis message to Telegram using the user's personal account
-    // const groupData = await getChannelInfo(CHANNEL_ID);
+    // const groupData = await getChannelInfo(channelId);
     // await sendMessageToChannel(
     //   groupData.chat_id,
     //   groupData.access_hash,

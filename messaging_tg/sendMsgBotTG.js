@@ -1,14 +1,13 @@
-require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require('axios');
+const config = require('../config/config');
 
-const { BOT_TOKEN_ACCESS, SERVER_URL } = process.env;
-const port = process.env.PORT || 4040;
-const TELEGRAM_API = `https://api.telegram.org/bot${BOT_TOKEN_ACCESS}`;
-const URI = `/webhook/${SERVER_URL}`;
-const WEBHOOK_URL = `${SERVER_URL}${URI}`;
-const CHAT_ID = process.env.CHAT_ID;
+const { botToken, serverUrl, chatId } = config.telegram;
+const { port } = config.server;
+const TELEGRAM_API = `https://api.telegram.org/bot${botToken}`;
+const URI = `/webhook/${serverUrl}`;
+const WEBHOOK_URL = `${serverUrl}${URI}`;
 const app = express();
 app.use(bodyParser.json());
 
@@ -23,7 +22,7 @@ const init = async()=>{
 const sendMessageToChannel = async (message) => {
     try {
         await axios.post(`${TELEGRAM_API}/sendMessage`, {
-            chat_id: CHAT_ID,
+            chat_id: chatId,
             text: message,
             parse_mode: "HTML", 
             disable_web_page_preview: true // Disables link previews

@@ -1,7 +1,7 @@
 // config/db.js
 const mongoose = require('mongoose');
-require('dotenv').config();
-const dbName = process.env.DB_NAME;
+const config = require('./config');
+const dbName = config.database.url;
 
 const connectDB = async () => {
   try {

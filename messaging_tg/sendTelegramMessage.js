@@ -1,16 +1,14 @@
 const MTProto = require("@mtproto/core");
 const path = require("path");
-require('dotenv').config();
+const config = require('../config/config');
+
 
 // Configuration
-const api_id = process.env.API_ID;
-const api_hash = process.env.API_HASH;
-const phone_number = process.env.PHONE_NUMBER; 
-
+const { apiId, apiHash, phoneNumber } = config.telegram;
 // Initialize MTProto
 const mtproto = new MTProto({
-  api_id,
-  api_hash,
+  apiId,
+  apiHash,
   storageOptions: {
     path: path.resolve(__dirname, "./telegram_sessions/session.json"),
   },
@@ -20,7 +18,7 @@ const mtproto = new MTProto({
 const sendCode = async () => {
   try {
     const result = await mtproto.call("auth.sendCode", {
-      phone_number,
+      phoneNumber,
       settings: {
         _: "codeSettings",
       },
@@ -42,7 +40,7 @@ const sendCode = async () => {
 const signIn = async (code, phone_code_hash) => {
   try {
     const result = await mtproto.call("auth.signIn", {
-      phone_number,
+      phoneNumber,
       phone_code_hash,
       phone_code: code,
     });

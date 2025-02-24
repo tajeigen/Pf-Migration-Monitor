@@ -1,8 +1,10 @@
 const axios = require("axios");
-require("dotenv").config();
-const bundle_url = process.env.BUNDLE_DATA;
+const config = require('../config/config');
+
+
+const {bundleData} = config.endpoints;
 const fetchBundleData = async (mint) => {
-    const url = `${bundle_url}${mint}`;
+    const url = `${bundleData}${mint}`;
 
     try {
         const response = await axios.get(url, {

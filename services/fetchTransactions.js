@@ -1,8 +1,9 @@
 // services/fetchTransactions.js
 const axios = require("axios");
 const Transaction = require("../models/Transaction");
-require("dotenv").config();
-const PF_URL = process.env.PF_TX;
+
+const config = require('../config/config');
+const {pfTx} = config.endpoints;
 const fetchTransactions = async (mint) => {
   let offset = 0;
   let transactions = [];
@@ -10,7 +11,7 @@ const fetchTransactions = async (mint) => {
   const maxRetries = 3;
 
   while (true) {
-    const url = `${PF_URL}${mint}?limit=200&offset=${offset}&minimumSize=0`;
+    const url = `${pfTx}${mint}?limit=200&offset=${offset}&minimumSize=0`;
     try {
       const response = await axios.get(url);
       if (response.data.length === 0) break;

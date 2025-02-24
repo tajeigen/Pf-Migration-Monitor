@@ -2,11 +2,11 @@
 const WebSocket = require("ws");
 const EventEmitter = require("events");
 const {printCoinInfo} = require('../utils/processAnalytics');
-require("dotenv").config();
+const config = require('../config/config');
+
 
 // WebSocket configuration
-const WS_URL = process.env.WS_BULLX_MIGRATING_COINS;
-const BULLX_EVENT = process.env.BULLX_EVENT
+const {wsBullX,bullXEvent} = config.endpoints;
 const WS_HEADERS = {
   "accept-language": "en-US,en;q=0.9,fr;q=0.8",
   "cache-control": "no-cache",
@@ -27,7 +27,7 @@ class WebSocketHandler extends EventEmitter {
   }
 
   connect() {
-    this.ws = new WebSocket(WS_URL, { headers: WS_HEADERS });
+    this.ws = new WebSocket(wsBullX, { headers: WS_HEADERS });
     this.setupEventHandlers();
   }
 
@@ -43,7 +43,7 @@ class WebSocketHandler extends EventEmitter {
     const subscribeMessage = {
       event: "pusher:subscribe",
       data: {
-        channel: BULLX_EVENT,
+        channel: bullXEvent,
       },
     };
     this.ws.send(JSON.stringify(subscribeMessage));
@@ -53,7 +53,7 @@ class WebSocketHandler extends EventEmitter {
     try {
       const parsedData = JSON.parse(data.toString());
 
-      if (parsedData.event === BULLX_EVENT) {
+      if (parsedData.event === bullXEvent) {
         const elements = JSON.parse(parsedData.data);
 
         elements.forEach((element) => {
